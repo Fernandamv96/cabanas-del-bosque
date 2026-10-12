@@ -16,8 +16,8 @@ declare module 'lenis' {
   class Lenis {
     constructor(options?: LenisOptions)
     raf(time: number): void
-    scrollTo(target: string | number | HTMLElement, options?: any): void
-    on(event: string, callback: (...args: any[]) => void): void
+    scrollTo(target: string | number | HTMLElement, options?: Record<string, unknown>): void
+    on(event: string, callback: (...args: unknown[]) => void): void
     destroy(): void
   }
 
