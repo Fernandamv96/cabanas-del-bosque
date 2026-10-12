@@ -15,22 +15,25 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default function App() {
   useEffect(() => {
-    let lenisInstance: any = null
+    let lenisInstance: InstanceType<typeof import('lenis').default> | null = null
+    let onTick: ((time: number) => void) | null = null
 
     const initLenis = async () => {
       const LenisModule = await import('lenis')
       const Lenis = LenisModule.default || LenisModule
 
-      lenisInstance = new Lenis({
+      const instance = new Lenis({
         lerp: 0.1,
         duration: 1.2,
       })
+      lenisInstance = instance
 
-      lenisInstance.on('scroll', ScrollTrigger.update)
+      instance.on('scroll', ScrollTrigger.update)
 
-      gsap.ticker.add((time: number) => {
-        lenisInstance.raf(time * 1000)
-      })
+      onTick = (time: number) => {
+        instance.raf(time * 1000)
+      }
+      gsap.ticker.add(onTick)
 
       gsap.ticker.lagSmoothing(0)
     }
@@ -38,6 +41,7 @@ export default function App() {
     initLenis()
 
     return () => {
+      if (onTick) gsap.ticker.remove(onTick)
       if (lenisInstance) {
         lenisInstance.destroy()
       }
