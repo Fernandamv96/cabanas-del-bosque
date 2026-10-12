@@ -1,73 +1,55 @@
-# React + TypeScript + Vite
+# 🌲 Cabañas del Bosque
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![CI](https://github.com/Fernandamv96/cabanas-del-bosque/actions/workflows/ci.yml/badge.svg)](https://github.com/Fernandamv96/cabanas-del-bosque/actions/workflows/ci.yml)
+![React](https://img.shields.io/badge/React-19-BD93F9?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-FF79C6?logo=typescript&logoColor=white)
+[![License: MIT](https://img.shields.io/badge/License-MIT-BD93F9)](LICENSE)
 
-Currently, two official plugins are available:
+Landing page de un complejo de **cabañas boutique con café de especialidad**: hero en video, cabañas, menú del café, galería, reservas y contacto, con animaciones al hacer scroll.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Demo:** <https://cabanas-del-bosque.vercel.app>
 
-## React Compiler
+![Hero de Cabañas del Bosque](docs/preview.png)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ¿Qué problema resuelve?
 
-## Expanding the ESLint configuration
+Le da a un negocio de turismo pequeño una vitrina inmersiva que transmite la experiencia (bosque, cabaña y café) y lleva al visitante a reservar.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+React 19 · TypeScript · Vite · Tailwind CSS 3 · shadcn/ui · GSAP + ScrollTrigger · Lenis (scroll suave) · Vercel
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Cómo correrlo localmente
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cd app
+npm ci
+npm run dev       # http://localhost:5173
+npm run lint      # ESLint
+npm run build     # tsc + vite build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+> En Vercel, el **Root Directory** del proyecto debe ser `app`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Estructura del proyecto
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```text
+app/
+├── src/
+│   ├── sections/       # Hero, About, Cabins, CafeMenu, Gallery, Booking, ContactFooter, Navigation
+│   ├── pages/Home.tsx
+│   ├── components/ui/  # componentes de shadcn/ui (generados)
+│   ├── types/lenis.d.ts
+│   └── App.tsx         # Lenis + GSAP ScrollTrigger
+└── public/             # imágenes y video del hero
 ```
+
+## Qué aprendí
+
+- A coordinar Lenis con GSAP ScrollTrigger y a limpiar los listeners al desmontar.
+- A tipar librerías sin tipos con un `.d.ts` propio en vez de usar `any`.
+- A revisar los lockfiles: el anterior descargaba paquetes desde un mirror privado.
+
+## Licencia
+
+Código bajo [MIT](LICENSE) © 2026 Fernanda (Fernandamv96).
